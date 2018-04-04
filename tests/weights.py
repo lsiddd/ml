@@ -1,5 +1,4 @@
 import matplotlib as mpl
-mpl.use("agg")
 import matplotlib.pyplot as plt
 font = {'size'   : 15}
 mpl.rc('font', **font)
@@ -16,7 +15,11 @@ mi = 0.1
 w0_start = 1.5
 w1_start = 0.5
 
-def adjust(x, d, w0_start, w1_start, filename, pltitle):
+def adjust(w0_start, w1_start, filename, pltitle):
+	#acessamos os valores globais de x e d para evitar passar como parâmetro a cada chamada
+	global x
+	global d
+
 	#pesos iniciais do perceptron
 	w0 = [w0_start]
 	w1 = [w1_start]
@@ -25,7 +28,7 @@ def adjust(x, d, w0_start, w1_start, filename, pltitle):
 	e = [e0]
 	y = [y0]
 	n = 0
-	print ("Iteração 0")
+	print ("Iteração 1")
 	print ("O erro nesta iteração é de " + str(e0))
 	print ("O peso w1 é :" + str(w1_start))
 	print ("O peso bias é:" + str(w0_start))
@@ -50,19 +53,18 @@ def adjust(x, d, w0_start, w1_start, filename, pltitle):
 	plt.xlabel("Entradas")
 	plt.ylabel("Saídas")
 	plt.title(pltitle)
-	plt.savefig(filename)
+	plt.show()
+	plt.savefig("plots/" + filename)
 	plt.close()
 	return (w0[-1], w1[-1])
 
 print ("---------------PRIMEIRA ÉPOCA---------------")
-w0_start, w1_start = adjust(x, d, w0_start, w1_start, "a.png", "Primeira Época")
+w0_start, w1_start = adjust(w0_start, w1_start, "a.png", "Primeira Época")
 print("----------------SEGUNDA ÉPOCA----------------")
-w0_start, w1_start = adjust(x, d, w0_start, w1_start, "b.png", "Segunda Época")
+w0_start, w1_start = adjust(w0_start, w1_start, "b.png", "Segunda Época")
 print("----------------TERCEIRA ÉPOCA----------------")
-w0_start, w1_start = adjust(x, d, w0_start, w1_start, "c.png", "Terceira Época")
+w0_start, w1_start = adjust(w0_start, w1_start, "c.png", "Terceira Época")
 print("----------------QUARTA ÉPOCA----------------")
-w0_start, w1_start = adjust(x, d, w0_start, w1_start, "d.png", "Quarta Época")
+w0_start, w1_start = adjust(w0_start, w1_start, "d.png", "Quarta Época")
 print("----------------QUINTA ÉPOCA----------------")
-w0_start, w1_start = adjust(x, d, w0_start, w1_start, "e.png", "Quinta Época")
-
-
+w0_start, w1_start = adjust(w0_start, w1_start, "e.png", "Quinta Época")
