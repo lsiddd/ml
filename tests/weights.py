@@ -1,7 +1,7 @@
 import matplotlib as mpl
 mpl.use("agg")
 import matplotlib.pyplot as plt
-font = {'size'   : 15}
+font = {'size'   : 14}
 mpl.rc('font', **font)
 
 #listas de entradas e saidas esperadas
@@ -49,42 +49,21 @@ def adjust(w0_start, w1_start, filename, pltitle):
 		print ("\n")
 	w0.append(w0[n] + mi * e[n])
 	w1.append(w1[n] + mi * e[n] * x[n])
-
-	#configurações de plot
-	plt.plot(x, d, label="dados")
-	plt.plot(x, y, '--', label="predição")
-	plt.legend()
-	plt.xlabel("Entradas")
-	plt.ylabel("Saídas")
-	plt.title(pltitle)
-	plt.show()
-	plt.savefig("plots/" + filename)
-	plt.close()
+	with plt.xkcd():
+		#configurações de plot
+		plt.figure(figsize=(6,6))
+		plt.plot(x, d, label="dados")
+		plt.plot(x, y, '--', label="predição")
+		plt.legend()
+		plt.xlabel("Entradas")
+		plt.ylabel("Saídas")
+		plt.title(pltitle)
+		plt.show()
+		plt.savefig("plots/" + filename)
+		plt.close()
 
 	#retorna os valores de peso que serão usados na próxima geração
 	return (w0[-1], w1[-1])
-
-print ("---------------PRIMEIRA ÉPOCA---------------")
-w0_start, w1_start = adjust(w0_start, w1_start, "a.pdf", "Primeira Época")
-print("----------------SEGUNDA ÉPOCA----------------")
-w0_start, w1_start = adjust(w0_start, w1_start, "b.pdf", "Segunda Época")
-print("----------------TERCEIRA ÉPOCA----------------")
-w0_start, w1_start = adjust(w0_start, w1_start, "c.pdf", "Terceira Época")
-print("----------------QUARTA ÉPOCA----------------")
-w0_start, w1_start = adjust(w0_start, w1_start, "d.pdf", "Quarta Época")
-print("----------------QUINTA ÉPOCA----------------")
-w0_start, w1_start = adjust(w0_start, w1_start, "e.pdf", "Quinta Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "f.pdf", "Sexta Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "g.pdf", "Sétima Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "h.pdf", "Oitava Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "i.pdf", "Nona Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "j.pdf", "Décima Primeira Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "k.pdf", "Décima Segunda Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "l.pdf", "Décima Terceira Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "m.pdf", "Décima Quarta Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "n.pdf", "Décima Quinta Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "o.pdf", "Décima Sexta Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "p.pdf", "Décima Sétima Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "q.pdf", "Décima Oitava Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "r.pdf", "Décima Nona Época")
-w0_start, w1_start = adjust(w0_start, w1_start, "s.pdf", "Vigésima Época")
+for i in range(0, 20):
+	print("--------------------" + str(i+1) + "ª ÉPOCA--------------------")
+	w0_start, w1_start = adjust(w0_start, w1_start,str(i) + ".png", str(i+1) + "ª Época")
