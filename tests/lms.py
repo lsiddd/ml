@@ -16,8 +16,8 @@ if (len(x) != len(d)):
 
 #taxa de aprendizagem e pesos iniciais
 mi = 0.1
-w0_start = 0
-w1_start = 0
+w0_start = 1.5
+w1_start = 0.5
 
 m_error = []
 w0_total = []
@@ -41,7 +41,6 @@ def adjust(w0_start, w1_start, filename, pltitle):
 	e0 = d[0] - y0
 	e = [e0]
 	y = [y0]
-	gradient.append(-1 * e0 * x[0])
 
 	print ("Iteração 1")
 	print ("O erro nesta iteração é de " + str(e0))
@@ -55,12 +54,12 @@ def adjust(w0_start, w1_start, filename, pltitle):
 
 		y.append(w1[n] * x[n] + w0[n])
 		e.append(d[n] - y[n])
-		gradient.append(-1 * e[n] * x[n])
 		print ("Iteração " + str(n + 1))
 		print ("O erro nesta iteração é de " + str(e[n]))
 		print ("O peso w1 é: " + str(w1[n]))
 		print ("O peso bias é: " + str(w0[n]))
 		print ("\n")
+	gradient.append(-1 * e[n] * x[n])
 
 	for i in w1:
 		w1_total.append(i)
@@ -116,9 +115,9 @@ plt.savefig("pesos.pdf")
 plt.figure(figsize=(9,6))
 plt.plot(gradient, label="Gradiente")
 plt.legend()
-plt.xlim(0, 150)
+plt.xlim(0, 30)
 plt.grid()
-plt.xlabel("Iteração")
+plt.xlabel("Época")
 plt.ylabel("Gradiente")
-plt.title("Gradiente ao Longo das Iterações")
+plt.title("Gradiente ao Final de Cada Época")
 plt.savefig("grad.pdf")
