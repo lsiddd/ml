@@ -22,21 +22,23 @@ Eepc = []
 w0_total = []
 w1_total = []
 grad = []
+m_error = []
 
 for k in range(31):
 	Ek = 0
 	y = []
+	e = []
 	for n in range(len(x)):
 		y.append(w0 + w1 * x[n])
-		e = d[n] - y[n]
-		w1 = w1 + mi * e * x[n]
-		w0 = w0 + mi * e * 1
-		Ek = Ek + 1/2 * e * e
+		e.append(d[n] - y[n])
+		w1 = w1 + mi * e[n] * x[n]
+		w0 = w0 + mi * e[n] * 1
+		Ek = Ek + 1/2 * e[n] * e[n]
 
 		w0_total.append(w0)
 		w1_total.append(w1)
-
-	grad.append(-1 * e * x[n])
+	m_error.append(np.mean(e))
+	grad.append(-1 * e[n] * x[n])
 	Eepc.append(Ek)
 	plt.figure(figsize=(6,6))
 	plt.plot(x, d, label="dados")
@@ -48,6 +50,24 @@ for k in range(31):
 	plt.title(str(k+1) + "ª Época")
 	plt.show()
 	plt.savefig("plots/" + str(k) + ".png")
+
+plt.figure(figsize=(9,6))
+plt.plot(Eepc)
+plt.grid()
+plt.xlim(0,30)
+plt.xlabel("Época")
+plt.ylabel("Erro Quadrático Médio")
+plt.title("Erro Quadrático Médio em Cada Época")
+plt.savefig("erro_quadratico.pdf")
+
+plt.figure(figsize=(9,6))
+plt.plot(m_error)
+plt.grid()
+plt.xlim(0,30)
+plt.xlabel("Época")
+plt.ylabel("Erro Médio")
+plt.title("Erro Médio em Cada Época")
+plt.savefig("erro.pdf")
 
 plt.figure(figsize=(9,6))
 plt.plot(w0_total, label="bias")
