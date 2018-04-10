@@ -24,22 +24,30 @@ w1_total = []
 grad = []
 m_error = []
 
-for k in range(31):
+for k in range(5):
+	print("--------------------" + str(k+1) + "ª ÉPOCA--------------------")
 	Ek = 0
 	y = []
 	e = []
 	for n in range(len(x)):
 		y.append(w0 + w1 * x[n])
 		e.append(d[n] - y[n])
+		print ("Iteração " + str(n + 1))
+		print ("O erro nesta iteração é de " + str(e[n]))
+		print ("O peso w1 é: " + str(w1))
+		print ("O peso bias é: " + str(w0))
+		print ("\n")
 		w1 = w1 + mi * e[n] * x[n]
 		w0 = w0 + mi * e[n] * 1
 		Ek = Ek + 1/2 * e[n] * e[n]
 
 		w0_total.append(w0)
 		w1_total.append(w1)
+
 	m_error.append(np.mean(e))
 	grad.append(-1 * e[n] * x[n])
 	Eepc.append(Ek)
+
 	plt.figure(figsize=(6,6))
 	plt.plot(x, d, label="dados")
 	plt.plot(x, y, '-.', label="predição")
@@ -90,5 +98,3 @@ plt.xlabel("Época")
 plt.ylabel("Gradiente")
 plt.title("Gradiente ao Final de Cada Época")
 plt.savefig("grad.pdf")
-print(w1)
-print(w0)
