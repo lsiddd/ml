@@ -24,7 +24,7 @@ w1_total = []
 grad = []
 m_error = []
 
-for k in range(5):
+for k in range(31):
 	print("--------------------" + str(k+1) + "ª ÉPOCA--------------------")
 	Ek = 0
 	y = []
@@ -43,9 +43,8 @@ for k in range(5):
 
 		w0_total.append(w0)
 		w1_total.append(w1)
-
+		grad.append(-1 * e[n] * x[n])
 	m_error.append(np.mean(e))
-	grad.append(-1 * e[n] * x[n])
 	Eepc.append(Ek)
 
 	plt.figure(figsize=(6,6))
@@ -92,7 +91,7 @@ plt.savefig("pesos.pdf")
 plt.figure(figsize=(9,6))
 plt.plot(grad, label="Gradiente")
 plt.legend()
-plt.xlim(0, 30)
+plt.xlim(0, 150)
 plt.grid()
 plt.xlabel("Época")
 plt.ylabel("Gradiente")
