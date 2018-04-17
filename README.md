@@ -7,4 +7,4 @@ Está Implementado:
 
 * Ajuste de pesos por LMS.
 
-* Só isso msm.
+* Rede Multicamadas.
