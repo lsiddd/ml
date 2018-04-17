@@ -26,17 +26,20 @@ def layer(x, u):
 
 def main():
 	#pesos da primeira camada
-	u =[[1,   2, 0],
-		[0.5, 1, 0]]
+	w1 =[[1,   2, 0],
+		[0.5, 1, 0],
+		[1, 2, 3],
+		[0.5, 0.5, 0.1]]
 	#pesos da segunda camada
-	v =[[1, 2, 0.5],
+	w2 =[[1, 2, 1, 1, 0.5],
+		[2, 1, 1, 1, 0.5]]
+	#pesos da terceira camada
+	w3 =[[1, 2, 0.5],
 		[2, 1, 0.5]]
 	#listas de entradas e saídas
 	x = [[0, 0], [0, 1], [1, 0], [1, 1]]
 	d = [[0, 0], [1, 0], [1, 0], [0, 1]]
-
-	r1 = []
-	print(layer(layer(x, u), v))
+	print (layer(layer(layer(x, w1),w2), w3))
 
 if __name__ == "__main__":
 	main()
