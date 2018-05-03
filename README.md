@@ -1,10 +1,16 @@
 # nn
 
-## Testes de implementação de Algoritmos de Redes Neurais Artificiais (ANN).
+## Implementações de técnicas de machine learning muito mal feitas
 
 
-Está Implementado:
+Oq já tem:
 
-* Ajuste de pesos por LMS.
+* LMS para ANN de uma só camada.
 
-* Rede Multicamadas.
+* Propagagação direta em multiplas camadas
+
+Oq deve ser feito em breve:
+
+* Loading Container Problem com AG
+
+* Backpropagation
