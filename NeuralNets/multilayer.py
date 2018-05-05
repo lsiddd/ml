@@ -1,9 +1,4 @@
-import matplotlib as mpl
-mpl.use("agg")
-import matplotlib.pyplot as plt
 import numpy as np
-font = {'size'   : 14}
-mpl.rc('font', **font)
 
 verbose = True
 
@@ -26,9 +21,12 @@ def layer(x, u):
 			s = 0
 			for j in range(len(i)): #para cada peso do neurônio
 				s = s + i[j] * N[j]
-			h1 .append(sigmoid(s))
+			h1.append(sigmoid(s))
 		r1.append(h1)
 	return r1
+
+def backprop(weights, e):
+	pass
 
 def main():
 	#última coluna dos pesos será sempre o bias
@@ -43,12 +41,11 @@ def main():
 	#listas de entradas e saídas
 	x = [[0, 0], [0, 1], [1, 0], [1, 1]]
 	d = [[0, 0], [1, 0], [1, 0], [0, 1]]
+
 	y = layer(layer(x, w1),w2)
+	
 	for i in range(len(y)):
-		print (1/2 * sum([(Y - D) ** 2 for Y, D in zip(d[i],y[i])]))
-		e.append(1/2 * sum([(Y - D) ** 2 for Y, D in zip(d[i],y[i])]))
-		#print (e)
-		#print (i)
+		e.append(1/2 * sum([(D - Y) ** 2 for D, Y in zip(d[i],y[i])]))
 
 if __name__ == "__main__":
 	main()
