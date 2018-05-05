@@ -77,11 +77,11 @@ def main():
 	pop = startPop(100)
 	for i in pop:
 		i.append(fitness(i))
+	pop.sort(key=lambda x: x[5], reverse=True)
 
 	nGerações = 100
 
 	for i in range(nGerações):
-		pop.sort(key=lambda x: x[5], reverse=True)
 
 		popPais = torneio(pop, 0.1, 3)
 		
@@ -89,8 +89,9 @@ def main():
 
 		pop = inserirFilhos(pop, popFilhos)
 
-		pop = mutacao(pop, 0.1)
-	print(pop[0])
+		pop = mutacao(pop, 0.2)
+
+		print(f'Geração {i} -- Melhor Indivíduo: {pop[0]} -- Peso: {sum([x*y for x,y in zip(pop[0], [2, 4, 5, 8, 12])])}')
 
 
 if (__name__=="__main__"):
