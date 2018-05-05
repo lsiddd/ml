@@ -3,18 +3,26 @@
 import numpy as np
 import random
 
+# produto escalar de duas listas numéricas
+dotp = lambda v1, v2: sum([x*y for x,y in zip(v1, v2)])
+
 def startPop(size):
 	pop = []
 	for i in range(size):
 		pop.append(list(np.random.random_integers(4,188,5)))
+
+	for i in pop:
+		i.append(fitness(i))
+
+	pop.sort(key=lambda x: x[5], reverse=True)
 	return pop
 
 def fitness(vec):
 	pesos = [2, 4, 5, 8, 12]
 	valores = [3, 6, 10, 18, 25]
 
-	pesoInd = sum([x*y for x,y in zip(vec, pesos)])
-	valorInd = sum([x*y for x,y in zip(vec, valores)])
+	pesoInd = dotp(vec, pesos)
+	valorInd = dotp(vec, valores)
 
 	if (pesoInd <= 500):
 		return valorInd
@@ -75,9 +83,6 @@ def mutacao(pop, tx):
 
 def main():
 	pop = startPop(100)
-	for i in pop:
-		i.append(fitness(i))
-	pop.sort(key=lambda x: x[5], reverse=True)
 
 	nGerações = 100
 
@@ -91,7 +96,7 @@ def main():
 
 		pop = mutacao(pop, 0.2)
 
-		print(f'Geração {i} -- Melhor Indivíduo: {pop[0]} -- Peso: {sum([x*y for x,y in zip(pop[0], [2, 4, 5, 8, 12])])}')
+		print(f'Geração {i} -- Melhor Indivíduo: {pop[0]} -- Peso: {dotp([2, 4, 5 , 8, 12], pop[0])}')
 
 
 if (__name__=="__main__"):
