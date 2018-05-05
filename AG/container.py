@@ -6,25 +6,25 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 
-# produto escalar de duas listas numéricas
+# Produto escalar de duas listas numéricas
 dotp = lambda v1, v2: sum([x*y for x,y in zip(v1, v2)])
 
-#iniciar população aleatóriamente
+# Iniciar população aleatóriamente
 def startPop(size):
 	pop = []
 	for i in range(size):
-		#nosso alfabeto será inteiros entre 4 e 188
+		# Nosso alfabeto será inteiros entre 4 e 188
 		pop.append(list(np.random.random_integers(4,188,5)))
 
-	#adicionar coluna de fitness
+	# Adicionar coluna de fitness
 	for i in pop:
 		i.append(fitness(i))
 
-	#ordenar por fitness
+	# Ordenar por fitness
 	pop.sort(key=lambda x: x[5], reverse=True)
 	return pop
 
-#cálculo dafitness dado um indivíduo
+# Cálculo dafitness dado um indivíduo
 def fitness(vec):
 	pesos = [2, 4, 5, 8, 12] #pesos de cada tipo
 	valores = [3, 6, 10, 18, 25] #valor de cada tipo
@@ -118,6 +118,7 @@ def mutacao(pop, tx):
 	return pop
 
 def main():
+	# Listas que serão plotadas
 	bestIndFit = []
 	mediumFit = []
 
@@ -140,6 +141,7 @@ def main():
 		bestIndFit.append(pop[0][5])
 		mediumFit.append(np.mean(pop, axis=0)[5])
 
+	# Plot da fitness
 	fig = Figure()
 	FigureCanvas(fig)
 	ax = fig.add_subplot(111)
