@@ -28,6 +28,7 @@ def startPop(size):
 def fitness(vec):
 	pesos = [2, 4, 5, 8, 12] #pesos de cada tipo
 	valores = [3, 6, 10, 18, 25] #valor de cada tipo
+	pesoMax = 500
 
 	# O peso e o valor de cada indivíduo
 	# será o produto escalar entre o
@@ -36,11 +37,11 @@ def fitness(vec):
 	pesoInd = dotp(vec, pesos)
 	valorInd = dotp(vec, valores)
 
-	if (pesoInd <= 500):
+	if (pesoInd <= pesoMax):
 		return valorInd
 	# Punição para o caso de o peso exceder o max
 	else:
-		return valorInd - 24 * (pesoInd - 500)
+		return valorInd - 24 * (pesoInd - pesoMax)
 
 # Seleção de pais por torneio
 def torneio(pop, tx, nCandidatos):
@@ -145,14 +146,15 @@ def main():
 	fig = Figure()
 	FigureCanvas(fig)
 	ax = fig.add_subplot(111)
-	ax.plot(bestIndFit, label="Fitness do Melhor Indivíduo")
-	ax.plot(mediumFit, "-.", label="Fitness Média da População")
+	ax.plot(bestIndFit, label='Fitness do Melhor Indivíduo')
+	ax.plot(mediumFit, '-.', label='Fitness Média da População')
 	ax.set_title('Fitness ao Longo das Gerações')
 	ax.set_xlabel('Geração')
 	ax.set_ylabel('Fitness')
 	ax.set_yscale('symlog')
 	ax.set_xlim(0,99)
-	fig.savefig("fit.pdf")
+	ax.legend()
+	fig.savefig('fit.pdf')
 
-if (__name__=="__main__"):
+if (__name__=='__main__'):
     main()
