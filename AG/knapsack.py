@@ -1,10 +1,8 @@
 #Loading Container Problem
-import numpy as np
-import random
-
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
-
+import numpy as np
+import random
 
 # Produto escalar de duas listas numéricas
 dotp = lambda v1, v2: sum([x*y for x,y in zip(v1, v2)])
@@ -126,16 +124,18 @@ def main():
 	pop = startPop(100)
 
 	nGerações = 100
+	taxaDeCruzamento = 0.5
+	taxaDeMutacao = 0.5
 
 	for i in range(nGerações):
 
-		popPais = torneio(pop, 0.1, 3)
+		popPais = torneio(pop, taxaDeCruzamento, 3)
 		
 		popFilhos = cruzamento(popPais)
 
 		pop = inserirFilhos(pop, popFilhos)
 
-		pop = mutacao(pop, 0.2)
+		pop = mutacao(pop, taxaDeMutacao)
 
 		print(f'Geração {i} -- Melhor Indivíduo: {pop[0]} -- Peso: {dotp([2, 4, 5 , 8, 12], pop[0])}')
 		
@@ -148,12 +148,13 @@ def main():
 	ax = fig.add_subplot(111)
 	ax.plot(bestIndFit, label='Fitness do Melhor Indivíduo')
 	ax.plot(mediumFit, '-.', label='Fitness Média da População')
-	ax.set_title('Fitness ao Longo das Gerações')
+	#ax.set_title('Fitness ao Longo das Gerações')
 	ax.set_xlabel('Geração')
 	ax.set_ylabel('Fitness')
 	ax.set_yscale('symlog')
 	ax.set_xlim(0,99)
-	ax.legend()
+	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='center',
+       ncol=2, borderaxespad=0)
 	fig.savefig('fit.pdf')
 
 if (__name__=='__main__'):
