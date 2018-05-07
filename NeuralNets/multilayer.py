@@ -1,5 +1,7 @@
 import numpy as np
 
+# Straightforward propagation in multiple layers
+
 verbose = True
 
 e = []
@@ -25,16 +27,13 @@ def layer(x, u):
 		r1.append(h1)
 	return r1
 
-def backprop(weights, e):
-	pass
-
 def main():
 	#última coluna dos pesos será sempre o bias
 	#pesos da primeira camada
 	w1 =[[1,   2, 0],
 		[0.5, 1, 0]]
 		
-	#pesos da terceira camada
+	#pesos da segunda camada
 	w2 =[[1, 2, 0.5],
 		[2, 1, 0.5]]
 
@@ -44,8 +43,5 @@ def main():
 
 	y = layer(layer(x, w1),w2)
 	
-	for i in range(len(y)):
-		e.append(1/2 * sum([(D - Y) ** 2 for D, Y in zip(d[i],y[i])]))
-
 if __name__ == "__main__":
 	main()
