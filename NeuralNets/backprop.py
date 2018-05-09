@@ -41,19 +41,13 @@ def main():
 	#última coluna dos pesos será sempre o bias
 	#8 perceptrons na primeira camada oculta
 	w1 =[[0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
 		 [0.5, 0.5, 0.5]]
 		
 	#4 perceptrons na segunda camada oculta
-	w2 =[[0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],]
+	w2 =[[0.5, 0.5, 0.5],
+		 [0.5, 0.5, 0.5],
+		 [0.5, 0.5, 0.5],
+		 [0.5, 0.5, 0.5],]
 
 	# 2 perceptrons na camada de saída
 	w3 = [[0.5, 0.5, 0.5, 0.5, 0.5],
@@ -69,7 +63,7 @@ def main():
 
 	mi = 0.1
 	nEpocas = 400
-	e = []
+	e = [0]
 	w1t = []
 	w2t = []
 
@@ -123,7 +117,7 @@ def main():
 	plt.figure()
 	plt.plot(e)
 	plt.grid()
-	plt.xlim(0, nEpocas-1)
+	plt.xlim(1, nEpocas)
 	plt.ylim(0, max(e))
 	plt.xlabel("Epoch")
 	plt.ylabel("MSE")
