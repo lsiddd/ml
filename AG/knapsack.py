@@ -1,4 +1,4 @@
-#Loading Container Problem
+#Knapsack Problem
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import numpy as np
@@ -12,7 +12,7 @@ def startPop(size):
 	pop = []
 	for i in range(size):
 		# Nosso alfabeto será inteiros entre 4 e 188
-		pop.append(list(np.random.random_integers(4,188,5)))
+		pop.append(list(np.random.random_integers(4,192,5)))
 
 	# Adicionar coluna de fitness
 	for i in pop:
@@ -30,7 +30,7 @@ def fitness(vec):
 
 	# O peso e o valor de cada indivíduo
 	# será o produto escalar entre o
-	# vetor de pesos e valores e a quantidade 
+	# vetor de pesos e valores e a quantidade
 	# de cada tipo no indivíduo
 	pesoInd = dotp(vec, pesos)
 	valorInd = dotp(vec, valores)
@@ -124,13 +124,13 @@ def main():
 	pop = startPop(100)
 
 	nGerações = 100
-	taxaDeCruzamento = 0.5
-	taxaDeMutacao = 0.5
+	taxaDeCruzamento = 0.9
+	taxaDeMutacao = 0.1
 
 	for i in range(nGerações):
 
 		popPais = torneio(pop, taxaDeCruzamento, 3)
-		
+
 		popFilhos = cruzamento(popPais)
 
 		pop = inserirFilhos(pop, popFilhos)
@@ -138,7 +138,7 @@ def main():
 		pop = mutacao(pop, taxaDeMutacao)
 
 		print(f'Geração {i} -- Melhor Indivíduo: {pop[0]} -- Peso: {dotp([2, 4, 5 , 8, 12], pop[0])}')
-		
+
 		bestIndFit.append(pop[0][5])
 		mediumFit.append(np.mean(pop, axis=0)[5])
 

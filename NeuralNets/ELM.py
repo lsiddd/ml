@@ -18,7 +18,7 @@ def main():
 	d = np.matrix('0 0;\
 				   1 0;\
 				   1 0;\
-				   0 1')
+				   1 1')
 
 	sh = list(x.shape)
 	sh[1] = sh[1] + 1
@@ -34,7 +34,11 @@ def main():
 	w2 = np.matmul(np.matmul(np.linalg.inv(np.matmul(Ha.transpose(), Ha)), Ha.transpose()), d).transpose()
 
 	Y = np.matmul(Ha, w2.transpose())
-	print (1/2 * sum([np.sum (i **2) for i in np.nditer(Y -d)]))	
+
+	print (Y)
+
+
+	print (f' O erro RMS da rede é {1/2 * sum([np.sum (i **2) for i in np.nditer(Y -d)])}')
 
 if __name__ == "__main__":
 	main()

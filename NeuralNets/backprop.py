@@ -42,24 +42,17 @@ def main():
 	#8 perceptrons na primeira camada oculta
 	w1 =[[0.5, 0.5, 0.5],
 		 [0.5, 0.5, 0.5]]
-		
-	#4 perceptrons na segunda camada oculta
-	w2 =[[0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5],]
 
 	# 2 perceptrons na camada de saída
-	w3 = [[0.5, 0.5, 0.5, 0.5, 0.5],
-		  [0.5, 0.5, 0.5, 0.5, 0.5]]
+	w2 = [[0.5, 0.5, 0.5],
+		  [0.5, 0.5, 0.5]]
 
 	#listas de entradas e saídas
 	x = [[0, 0], [0, 1], [1, 0], [1, 1]]
 	d = [[0, 0], [1, 0], [1, 0], [0, 1]]
 
 	h1 = layer (x, w1)
-	h2 = layer (h1, w2)
-	y  = layer (h2, w3)
+	y  = layer (h1, w2)
 
 	mi = 0.1
 	nEpocas = 400
@@ -70,33 +63,22 @@ def main():
 	for i in range(nEpocas):
 		lastE = erro(y, d)
 		h1 = layer (x, w1)
-		h2 = layer (h1, w2)
-		y  = layer (h2, w3)
+		y  = layer (h1, w2)
 
 		for n in range(len(d)):
 			delta1 = []
 			delta2 = []
-			delta3 = []
 
 
-			for i in range(len(w3)):
-				delta3.append(y[n][i] * (1 - y[n][i]) * (y[n][i] - d[n][i]))
 			for i in range(len(w2)):
-				soma = 0
-				for j in range(len(w3)):
-					soma = soma + delta3[j] * w3[j][i]
-				delta2.append(h2[n][i] * (1 - h2[n][i]) * soma)
+				delta2.append(y[n][i] * (1 - y[n][i]) * (y[n][i] - d[n][i]))
 			for i in range(len(w1)):
 				soma = 0
-				for j in range(len(w2)):
+				for j in range(len(w1)):
 					soma = soma + delta2[j] * w2[j][i]
 				delta1.append(h1[n][i] * (1 - h1[n][i]) * soma)
 
 
-			for i in range(len(w3)):
-				for j in range(len(w3[i]) - 1):
-					w3[i][j] = w3[i][j] - mi * delta3[i] * h2[n][j]
-				w3[i][j+1] = w3[i][j+1] - mi * delta3[i]
 			for i in range(len(w2)):
 				for j in range(len(w2[i]) - 1):
 					w2[i][j] = w2[i][j] - mi * delta2[i] * h1[n][j]
@@ -105,14 +87,10 @@ def main():
 				for j in range(len(w1[i]) - 1):
 					w1[i][j] = w1[i][j] - mi * delta1[i] * x[n][j]
 				w1[i][j+1] = w1[i][j+1] - mi * delta1[i]
-				
-			h1 = layer (x, w1)
-			h2 = layer (h1, w2)
-			y  = layer (h2, w3)
-		
+
 		print(erro(y, d))
 		e.append(erro(y, d))
-		
+
 
 	plt.figure()
 	plt.plot(e)
@@ -122,6 +100,6 @@ def main():
 	plt.xlabel("Epoch")
 	plt.ylabel("MSE")
 	plt.show()
-	
+
 if __name__ == "__main__":
 	main()
