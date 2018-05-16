@@ -11,6 +11,7 @@ e = []
 
 #função sigmoide
 sigmoid = lambda z:(np.exp(z) - np.exp(-1 * z)) / (np.exp(z) + np.exp(-1 * z))
+
 def erro(y, d):
 	error = 0
 	for o, t in zip(y,d):
@@ -40,12 +41,12 @@ def layer(x, u):
 def main():
 	#última coluna dos pesos será sempre o bias
 	#8 perceptrons na primeira camada oculta
-	w1 =[[0.5, 0.5, 0.5],
-		 [0.5, 0.5, 0.5]]
+	w1 =[[0.1, 0.2, 0.3],
+		 [0.4, 0.5, 0.6]]
 
 	# 2 perceptrons na camada de saída
-	w2 = [[0.5, 0.5, 0.5],
-		  [0.5, 0.5, 0.5]]
+	w2 = [[0.1, 0.2, 0.3],
+		 [0.4, 0.5, 0.6]]
 
 	#listas de entradas e saídas
 	x = [[0, 0], [0, 1], [1, 0], [1, 1]]
@@ -55,13 +56,12 @@ def main():
 	y  = layer (h1, w2)
 
 	mi = 0.1
-	nEpocas = 400
+	nEpocas = 350
 	e = [0]
 	w1t = []
 	w2t = []
 
-	for i in range(nEpocas):
-		lastE = erro(y, d)
+	for Epc in range(nEpocas):
 		h1 = layer (x, w1)
 		y  = layer (h1, w2)
 
@@ -74,10 +74,9 @@ def main():
 				delta2.append(y[n][i] * (1 - y[n][i]) * (y[n][i] - d[n][i]))
 			for i in range(len(w1)):
 				soma = 0
-				for j in range(len(w1)):
+				for j in range(len(w2)):
 					soma = soma + delta2[j] * w2[j][i]
 				delta1.append(h1[n][i] * (1 - h1[n][i]) * soma)
-
 
 			for i in range(len(w2)):
 				for j in range(len(w2[i]) - 1):
@@ -88,17 +87,18 @@ def main():
 					w1[i][j] = w1[i][j] - mi * delta1[i] * x[n][j]
 				w1[i][j+1] = w1[i][j+1] - mi * delta1[i]
 
-		print(erro(y, d))
 		e.append(erro(y, d))
 
-
+	
+	mpl.style.use("ggplot")
 	plt.figure()
-	plt.plot(e)
+	plt.plot(e, linewidth=2, color='orange')
 	plt.grid()
 	plt.xlim(1, nEpocas)
 	plt.ylim(0, max(e))
 	plt.xlabel("Epoch")
 	plt.ylabel("MSE")
+	plt.grid(True, color="#9467bd")
 	plt.show()
 
 if __name__ == "__main__":
