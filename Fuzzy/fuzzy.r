@@ -3,14 +3,16 @@ if(!require(FuzzyR)){
   install.packages("FuzzyR")
   library(somepackage)
 }
-
+#criar objeto first
 fis= newfis("study")
 
+#adicionar as variáveis de entrada e saída
 fis= addvar(fis, 'input', 'conhecimento prévio', c(0,10))
 fis= addvar(fis, 'input', 'dificuldade', c(0,10))
 fis= addvar(fis, 'input', 'dificuldade para colar', c(0,10))
 fis= addvar(fis, 'output', 'horas de antecedência para estudar', c(0,24))
 
+#adicionar as funções de pertinência
 fis= addmf(fis, 'input', 1, 'zerado', 'gaussmf', c(1.5,0))
 fis= addmf(fis, 'input', 1, 'mais ou menos', 'gaussmf', c(1.5,5))
 fis= addmf(fis, 'input', 1, 'expert', 'gaussmf', c(1.5,10)) 
@@ -49,9 +51,12 @@ rules= rbind(c(3, 1, 0, 1, 1, 1),
              c(0, 1, 2, 2, 1, 1),
              c(0, 3, 1, 2, 1, 1),
              c(0, 2, 1, 2, 1, 1))
+
+#adicionar regras ao objeto
 fis= addrule(fis, rules)
 showrule(fis)
 
+#plot das funções de pertinência
 png('mf1.png')
 plotmf(fis, 'input', 1)
 dev.off()
@@ -68,4 +73,5 @@ png('out1.png')
 plotmf(fis, 'output', 1)
 dev.off()
 
+#Interface gráfica da biblioteca
 showGUI(fis)
