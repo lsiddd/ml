@@ -6,26 +6,26 @@ if(!require(FuzzyR)){
 
 fis= newfis("study")
 
-fis= addvar(fis, 'input', 'previous knowledge', c(0,10))
-fis= addvar(fis, 'input', 'dificulty', c(0,10))
-fis= addvar(fis, 'input', 'how difficult it is to cheat', c(0,10))
-fis= addvar(fis, 'output', 'how many hours before the test I should study', c(0,24))
+fis= addvar(fis, 'input', 'conhecimento prévio', c(0,10))
+fis= addvar(fis, 'input', 'dificuldade', c(0,10))
+fis= addvar(fis, 'input', 'dificuldade para colar', c(0,10))
+fis= addvar(fis, 'output', 'horas de antecedência para estudar', c(0,24))
 
-fis= addmf(fis, 'input', 1, 'none', 'gaussmf', c(1.5,0))
-fis= addmf(fis, 'input', 1, 'some knowledge', 'gaussmf', c(1.5,5))
+fis= addmf(fis, 'input', 1, 'zerado', 'gaussmf', c(1.5,0))
+fis= addmf(fis, 'input', 1, 'mais ou menos', 'gaussmf', c(1.5,5))
 fis= addmf(fis, 'input', 1, 'expert', 'gaussmf', c(1.5,10)) 
 
-fis= addmf(fis, 'input', 2, 'easy', 'trapmf', c(0,0,1,3))
-fis= addmf(fis, 'input', 2, 'more or less easy', 'trapmf', c(2, 3, 7, 8))
-fis= addmf(fis, 'input', 2, 'difficult', 'trapmf', c(7,9,10,10))
+fis= addmf(fis, 'input', 2, 'fácil', 'trapmf', c(0,0,1,3))
+fis= addmf(fis, 'input', 2, 'mais ou menos', 'trapmf', c(2, 3, 7, 8))
+fis= addmf(fis, 'input', 2, 'difícil', 'trapmf', c(7,9,10,10))
 
-fis= addmf(fis, 'input', 3, 'easy', 'gaussmf', c(1, 0))
-fis= addmf(fis, 'input', 3, 'more or less', 'gaussmf', c(2, 5))
-fis= addmf(fis, 'input', 3, 'difficult', 'gaussmf', c(1, 10))
+fis= addmf(fis, 'input', 3, 'fácil', 'gaussmf', c(1, 0))
+fis= addmf(fis, 'input', 3, 'mais ou menos', 'gaussmf', c(1, 5))
+fis= addmf(fis, 'input', 3, 'difícil', 'gaussmf', c(1, 10))
 
-fis= addmf(fis, 'output', 1, 'during it', 'gaussmf', c(1.5,0))
-fis= addmf(fis, 'output', 1, 'the night before', 'gaussmf', c(1.5,12))
-fis= addmf(fis, 'output', 1, 'early', 'gaussmf', c(1.5,24))
+fis= addmf(fis, 'output', 1, 'durante a prova', 'gaussmf', c(1.5,0))
+fis= addmf(fis, 'output', 1, 'noite anterior', 'gaussmf', c(1.5,12))
+fis= addmf(fis, 'output', 1, 'cedo', 'gaussmf', c(1.5,24))
 
 #columns:
 # 1st -> first input variable
@@ -35,7 +35,8 @@ fis= addmf(fis, 'output', 1, 'early', 'gaussmf', c(1.5,24))
 # 5th -> weigth of the rule
 # 6th -> 1 for AND, 2 for OR
 
-rules= rbind(c(1, 1, 1, 1, 1, 1),
+ rules= rbind(
+ 			 c(1, 1, 1, 1, 1, 1),
              c(1, 1, 2, 2, 1, 1),
              c(1, 1, 3, 2, 1, 1),
              c(1, 2, 1, 2, 1, 1),
