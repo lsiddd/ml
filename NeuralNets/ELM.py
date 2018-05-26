@@ -15,10 +15,10 @@ def main():
 				   1 0;\
 				   1 1')
 
-	d = np.matrix('0 0;\
-				   1 0;\
-				   1 0;\
-				   1 1')
+	d = np.matrix('0 0 1;\
+				   1 0 1;\
+				   1 0 1;\
+				   1 1 0')
 
 	sh = list(x.shape)
 	sh[1] = sh[1] + 1
