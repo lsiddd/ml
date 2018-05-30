@@ -8,10 +8,19 @@ sigmoid = lambda z:(np.exp(z) - np.exp(-1 * z)) / (np.exp(z) + np.exp(-1 * z))
 erro = lambda y, d: 1/2 * sum([np.sum (i **2) for i in np.nditer(y - d)])
 
 def output(x, d, w1, w2=[]):
-	sh = list(x.shape)
+	scaler = sk.MinMaxScaler(feature_range=(-1, 1))
+	scaler = scaler.fit(x)
+	X_scaled = scaler.transform(x)
+
+	scaler = sk.MinMaxScaler(feature_range=(-0.7, 0.7))
+	scaler = scaler.fit(d)
+	D_scaled = scaler.transform(d)
+
+	# Checking reconstruction
+	sh = list(X_scaled.shape)
 	sh[1] = sh[1] + 1
 	Xa = np.ones(sh)
-	Xa[:,:-1] = x
+	Xa[:,:-1] = X_scaled
 	S = sigmoid(np.matmul(Xa, w1.transpose()))
 
 	sh = list(S.shape)
@@ -19,10 +28,12 @@ def output(x, d, w1, w2=[]):
 	Ha = np.ones(sh)
 	Ha[:,:-1] = S
 	if(w2 == []):
-		w2 = np.matmul(np.matmul(np.linalg.inv(np.matmul(Ha.transpose(), Ha)), Ha.transpose()), d).transpose()
+		w2 = np.matmul(np.matmul(np.linalg.inv(np.matmul(Ha.transpose(), Ha)), Ha.transpose()), D_scaled).transpose()
 
 	Y = np.matmul(Ha, w2.transpose())
 
+	d = scaler.inverse_transform(D_scaled)
+	Y = scaler.inverse_transform(Y)
 	print (f'pesos da camada oculta: \n{w1}')
 	print (f'pesos da camada de saída: \n{w2}')
 	print (f'resposta da camada oculta:\n {S}')

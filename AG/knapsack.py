@@ -1,6 +1,7 @@
 #Knapsack Problem
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
+from matplotlib import style
 import numpy as np
 import random
 
@@ -124,7 +125,7 @@ def main():
 	pop = startPop(100)
 
 	nGerações = 100
-	taxaDeCruzamento = 0.9
+	taxaDeCruzamento = 0.99
 	taxaDeMutacao = 0.1
 
 	for i in range(nGerações):
@@ -144,6 +145,7 @@ def main():
 
 	# Plot da fitness
 	fig = Figure()
+	#style.use("ggplot")
 	FigureCanvas(fig)
 	ax = fig.add_subplot(111)
 	ax.plot(bestIndFit, label='Fitness do Melhor Indivíduo')
@@ -153,6 +155,7 @@ def main():
 	ax.set_ylabel('Fitness')
 	ax.set_yscale('symlog')
 	ax.set_xlim(0,99)
+	ax.grid(True, color="#9467bd")
 	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='center',
        ncol=2, borderaxespad=0)
 	fig.savefig('fit.pdf')

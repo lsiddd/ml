@@ -1,12 +1,15 @@
 import numpy as np
+import matplotlib as mpl
+#mpl.use("agg")
 import matplotlib.style as style
 import matplotlib.pyplot as plt
 
-np.random.seed(1)
+np.random.seed(0)
 
 sigmoid = lambda z:np.tanh(z)
 Dsigmoid = lambda z: (1/ np.cosh(z)) ** 2
-gaussian = lambda x: np.exp(-1 * x**(2))/ np.sqrt(2 * np.pi)
+gaussian = lambda x: np.exp(-1 * x**(2)) * 2 - 1
+test = lambda x: 0.2 + 0.4 * x**2 + 0.3 * np.sin(15 * x) + 0.05 * np.cos(50 * x)
 
 def erro(y, d):
     error = 0
@@ -17,15 +20,16 @@ def erro(y, d):
 
 x = []
 d = []
-linspace = np.arange(-5, 5, 0.1)
+linspace = np.arange(0, 1, 0.01)
 for i in linspace:
     x.append([i])
-    d.append([gaussian(i), sigmoid(i)])
+    d.append([test(i)])
 
-w1 = np.random.rand(2,2)
-w2 = np.random.rand(2, 3)
+w1 = np.random.rand(30,2)
+w2 = np.random.rand(1,31)
 
-nEpocas = 1000
+
+nEpocas = 2000
 mi = 0.1
 Erro = []
 for n in range(nEpocas):
@@ -78,14 +82,35 @@ for n in range(nEpocas):
             w1[c][i+1] = w1[c][i+1] - mi * delta1[c]
         Erro.append(erro(response,d))
 
+print(w1)
+print (w2)
+
+mpl.style.use("ggplot")
 plt.figure()
+plt.xlabel("Epoch")
+plt.ylabel("MSE")
+plt.grid(True, color="#9467bd")
 plt.plot( np.arange(0, nEpocas, nEpocas / len(Erro)), Erro)
+plt.savefig("mse.png")
 
 plt.figure()
-plt.plot(linspace,[i[0] for i in response[::2]])
-plt.plot(linspace, gaussian(linspace))
+plt.xlabel("Entrada")
+plt.ylabel("Saída")
+plt.grid(True, color="#9467bd")
+plt.plot(linspace,[i[0] for i in response], "--", label="Valor Previsto", linewidth=2)
+plt.plot(linspace, test(linspace), "-.", label="Valor Alvo", linewidth=2)
+plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='center',
+       ncol=2, borderaxespad=0)
 
-plt.figure()
-plt.plot(linspace,[i[1] for i in response[::2]])
-plt.plot(linspace, sigmoid(linspace))
 plt.show()
+'''
+plt.figure()
+plt.xlabel("Entrada")
+plt.ylabel("Saída")
+plt.grid(True, color="#9467bd")
+plt.plot(linspace,[i[1] for i in response[::2]], "--", label="Valor Previsto", linewidth=2)
+plt.plot(linspace, sigmoid(linspace), "-.", label="Valor Alvo", linewidth=2)
+plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='center',
+       ncol=2, borderaxespad=0)
+       '''
+
