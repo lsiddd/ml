@@ -5,9 +5,6 @@ import numpy as np
 np.random.seed(0)
 
 # Backpropagation in two layers
-
-verbose = True
-
 e = []
 
 #função sigmoide
@@ -43,20 +40,21 @@ def layer(x, u):
 def main():
 	#última coluna dos pesos será sempre o bias
 	#8 perceptrons na primeira camada oculta
-	w1 = np.random.rand(2,3) 
+	w1 = np.random.rand(5,3) 
 
 	# 2 perceptrons na camada de saída
-	w2 = np.random.rand(2,3)
-
+	w2 = np.random.rand(2,6)
+	
 	#listas de entradas e saídas
 	x = [[0, 0], [0, 1], [1, 0], [1, 1]]
 	d = [[0, 0], [1, 0], [1, 0], [0, 1]]
+	
 
 	h1 = layer (x, w1)
 	y  = layer (h1, w2)
 
 	mi = 0.1
-	nEpocas = 500
+	nEpocas = 5000
 	e = [0]
 	w1t = []
 	w2t = []

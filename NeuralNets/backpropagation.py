@@ -21,15 +21,19 @@ def erro(y, d):
 x = []
 d = []
 linspace = np.arange(0, 1, 0.01)
-for i in linspace:
-    x.append([i])
-    d.append([test(i)])
 
-w1 = np.random.rand(30,2)
-w2 = np.random.rand(1,31)
+x = [[0,0], [0,1],[1,0],[1,1]]
+d = [[0], [1], [1], [0]]
+
+P = 15
+M = len(x[0])
+C = len(d[0])
+
+w1 = np.random.rand(P, M + 1)
+w2 = np.random.rand(C, P + 1)
 
 
-nEpocas = 2000
+nEpocas = 500
 mi = 0.1
 Erro = []
 for n in range(nEpocas):
@@ -84,6 +88,7 @@ for n in range(nEpocas):
 
 print(w1)
 print (w2)
+print(response)
 
 mpl.style.use("ggplot")
 plt.figure()
@@ -92,7 +97,7 @@ plt.ylabel("MSE")
 plt.grid(True, color="#9467bd")
 plt.plot( np.arange(0, nEpocas, nEpocas / len(Erro)), Erro)
 plt.savefig("mse.png")
-
+'''
 plt.figure()
 plt.xlabel("Entrada")
 plt.ylabel("Saída")
@@ -101,6 +106,7 @@ plt.plot(linspace,[i[0] for i in response], "--", label="Valor Previsto", linewi
 plt.plot(linspace, test(linspace), "-.", label="Valor Alvo", linewidth=2)
 plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='center',
        ncol=2, borderaxespad=0)
+'''
 
 plt.show()
 '''

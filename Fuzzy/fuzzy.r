@@ -1,33 +1,33 @@
 #install package FuzzyR if not already installed
 if(!require(FuzzyR)){
   install.packages("FuzzyR")
-  library(somepackage)
+  library(FuzzyR)
 }
 #criar objeto first
 fis= newfis("study")
 
-#adicionar as variáveis de entrada e saída
-fis= addvar(fis, 'input', 'conhecimento prévio', c(0,10))
-fis= addvar(fis, 'input', 'dificuldade', c(0,10))
-fis= addvar(fis, 'input', 'dificuldade para colar', c(0,10))
-fis= addvar(fis, 'output', 'horas de antecedência para estudar', c(0,24))
+#adicionar as variaveis de entrada e saida
+fis= addvar(fis, 'input', 'conhecimento previo', c(0,25))
+fis= addvar(fis, 'input', 'dificuldade', c(0,25))
+fis= addvar(fis, 'input', 'dificuldade para colar', c(0,25))
+fis= addvar(fis, 'output', 'horas de antecedencia para estudar', c(0,25))
 
-#adicionar as funções de pertinência
-fis= addmf(fis, 'input', 1, 'zerado', 'gaussmf', c(1.5,0))
-fis= addmf(fis, 'input', 1, 'mais ou menos', 'gaussmf', c(1.5,5))
-fis= addmf(fis, 'input', 1, 'expert', 'gaussmf', c(1.5,10)) 
+#adicionar as funcoes de pertinencia
+fis= addmf(fis, 'input', 1, 'zerado', 'gaussmf', c(3,3))
+fis= addmf(fis, 'input', 1, 'mais ou menos', 'gaussmf', c(3,13))
+fis= addmf(fis, 'input', 1, 'expert', 'gaussmf', c(3,19)) 
 
-fis= addmf(fis, 'input', 2, 'fácil', 'trapmf', c(0,0,1,3))
-fis= addmf(fis, 'input', 2, 'mais ou menos', 'trapmf', c(2, 3, 7, 8))
-fis= addmf(fis, 'input', 2, 'difícil', 'trapmf', c(7,9,10,10))
+fis= addmf(fis, 'input', 2, 'facil', 'trapmf', c(0,0,4,7))
+fis= addmf(fis, 'input', 2, 'mais ou menos', 'trapmf', c(5, 7, 11, 15))
+fis= addmf(fis, 'input', 2, 'dificil', 'trapmf', c(10,16,21,25))
 
-fis= addmf(fis, 'input', 3, 'fácil', 'gaussmf', c(1, 0))
-fis= addmf(fis, 'input', 3, 'mais ou menos', 'gaussmf', c(1, 5))
-fis= addmf(fis, 'input', 3, 'difícil', 'gaussmf', c(1, 10))
+fis= addmf(fis, 'input', 3, 'facil', 'trimf', c(0, 6, 9))
+fis= addmf(fis, 'input', 3, 'mais ou menos', 'trimf', c(8, 13, 18))
+fis= addmf(fis, 'input', 3, 'dificil', 'trimf', c(17, 20, 25))
 
-fis= addmf(fis, 'output', 1, 'durante a prova', 'gaussmf', c(1.5,0))
-fis= addmf(fis, 'output', 1, 'noite anterior', 'gaussmf', c(1.5,12))
-fis= addmf(fis, 'output', 1, 'cedo', 'gaussmf', c(1.5,24))
+fis= addmf(fis, 'output', 1, 'durante a prova', 'trapmf', c(0, 0, 6, 12))
+fis= addmf(fis, 'output', 1, 'noite anterior', 'gaussmf', c(3, 12))
+fis= addmf(fis, 'output', 1, 'cedo', 'trimf', c(15, 20, 25))
 
 #columns:
 # 1st -> first input variable
@@ -56,7 +56,7 @@ rules= rbind(c(3, 1, 0, 1, 1, 1),
 fis= addrule(fis, rules)
 showrule(fis)
 
-#plot das funções de pertinência
+#plot das funcoes de pertinencia
 png('mf1.png')
 plotmf(fis, 'input', 1)
 dev.off()
@@ -73,5 +73,5 @@ png('out1.png')
 plotmf(fis, 'output', 1)
 dev.off()
 
-#Interface gráfica da biblioteca
+#Interface grafica da biblioteca
 showGUI(fis)

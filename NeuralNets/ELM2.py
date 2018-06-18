@@ -8,15 +8,16 @@ sigmoid = lambda z:(np.exp(z) - np.exp(-1 * z)) / (np.exp(z) + np.exp(-1 * z))
 erro = lambda y, d: 1/2 * sum([np.sum (i **2) for i in np.nditer(y - d)])
 
 def output(x, d, w1, w2=[]):
+	#scaling das entradas entre -1 e 1
 	scaler = sk.MinMaxScaler(feature_range=(-1, 1))
 	scaler = scaler.fit(x)
 	X_scaled = scaler.transform(x)
 
+	#scaling do conjunto de treinamento entre -0.7 e 0.7
 	scaler = sk.MinMaxScaler(feature_range=(-0.7, 0.7))
 	scaler = scaler.fit(d)
 	D_scaled = scaler.transform(d)
 
-	# Checking reconstruction
 	sh = list(X_scaled.shape)
 	sh[1] = sh[1] + 1
 	Xa = np.ones(sh)
@@ -32,6 +33,7 @@ def output(x, d, w1, w2=[]):
 
 	Y = np.matmul(Ha, w2.transpose())
 
+	#reversão do scaling para cálculo do erro
 	d = scaler.inverse_transform(D_scaled)
 	Y = scaler.inverse_transform(Y)
 	print (f'pesos da camada oculta: \n{w1}')

@@ -125,7 +125,7 @@ def main():
 	pop = startPop(100)
 
 	nGerações = 100
-	taxaDeCruzamento = 0.99
+	taxaDeCruzamento = 0.50
 	taxaDeMutacao = 0.1
 
 	for i in range(nGerações):
@@ -158,7 +158,7 @@ def main():
 	ax.grid(True, color="#9467bd")
 	ax.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='center',
        ncol=2, borderaxespad=0)
-	fig.savefig('fit.pdf')
+	fig.savefig('fit.png')
 
 if (__name__=='__main__'):
     main()
