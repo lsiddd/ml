@@ -1,8 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import sys
 from datasets import fish
+
 sigmoid = lambda z:np.tanh(z)
 Dsigmoid = lambda z: (1/ np.cosh(z)) ** 2
 
@@ -21,8 +25,8 @@ def main():
 		d.append([1, 0])
 	for i in fish.canada:
 		d.append([0, 1])
-
-	P = 20
+	
+	P = int(input("Número de neurônios na camada oculta: "))
 	M = len(x[0])
 	C = len(d[0])
 
@@ -30,7 +34,7 @@ def main():
 	w2 = np.random.rand(C, P + 1)
 
 
-	nEpocas = 700
+	nEpocas = int(input("Número de épocas: "))
 	mi = 0.1
 	Erro = []
 	for n in range(nEpocas):
