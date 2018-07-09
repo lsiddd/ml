@@ -26,7 +26,7 @@ def main():
 	for i in fish.canada:
 		d.append([0, 1])
 	
-	P = int(input("Número de neurônios na camada oculta: "))
+	P = 30
 	M = len(x[0])
 	C = len(d[0])
 
@@ -34,7 +34,7 @@ def main():
 	w2 = np.random.rand(C, P + 1)
 
 
-	nEpocas = int(input("Número de épocas: "))
+	nEpocas = 100
 	mi = 0.1
 	Erro = []
 	for n in range(nEpocas):

@@ -125,7 +125,7 @@ def main():
 	pop = startPop(100)
 
 	nGerações = 100
-	taxaDeCruzamento = 0.50
+	taxaDeCruzamento = 0.5
 	taxaDeMutacao = 0.1
 
 	for i in range(nGerações):
@@ -145,7 +145,7 @@ def main():
 
 	# Plot da fitness
 	fig = Figure()
-	#style.use("ggplot")
+	style.use("ggplot")
 	FigureCanvas(fig)
 	ax = fig.add_subplot(111)
 	ax.plot(bestIndFit, label='Fitness do Melhor Indivíduo')

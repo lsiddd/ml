@@ -4,8 +4,6 @@ import matplotlib as mpl
 import matplotlib.style as style
 import matplotlib.pyplot as plt
 
-np.random.seed(0)
-
 sigmoid = lambda z:np.tanh(z)
 Dsigmoid = lambda z: (1/ np.cosh(z)) ** 2
 gaussian = lambda x: np.exp(-1 * x**(2)) * 2 - 1
@@ -20,12 +18,16 @@ def erro(y, d):
 
 x = []
 d = []
-linspace = np.arange(0, 1, 0.01)
+linspace = np.arange(0, 10, 0.1)
 
-x = [[0,0], [0,1],[1,0],[1,1]]
-d = [[0], [1], [1], [0]]
+#x = [[0,0], [0,1],[1,0],[1,1]]
+#d = [[0], [1], [1], [0]]
 
-P = 15
+for i in linspace:
+	x.append([i])
+	d.append([np.sin(i)])
+
+P = 12
 M = len(x[0])
 C = len(d[0])
 
@@ -86,9 +88,7 @@ for n in range(nEpocas):
             w1[c][i+1] = w1[c][i+1] - mi * delta1[c]
         Erro.append(erro(response,d))
 
-print(w1)
-print (w2)
-print(response)
+print (Erro[-1])
 
 mpl.style.use("ggplot")
 plt.figure()
@@ -97,16 +97,16 @@ plt.ylabel("MSE")
 plt.grid(True, color="#9467bd")
 plt.plot( np.arange(0, nEpocas, nEpocas / len(Erro)), Erro)
 plt.savefig("mse.png")
-'''
+
 plt.figure()
 plt.xlabel("Entrada")
 plt.ylabel("Saída")
 plt.grid(True, color="#9467bd")
 plt.plot(linspace,[i[0] for i in response], "--", label="Valor Previsto", linewidth=2)
-plt.plot(linspace, test(linspace), "-.", label="Valor Alvo", linewidth=2)
+plt.plot(linspace, np.sin(linspace), "-.", label="Valor Alvo", linewidth=2)
 plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc='center',
        ncol=2, borderaxespad=0)
-'''
+
 
 plt.show()
 '''

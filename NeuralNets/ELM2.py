@@ -29,9 +29,9 @@ def output(x, d, w1, w2=[]):
 	Ha = np.ones(sh)
 	Ha[:,:-1] = S
 	if(w2 == []):
-		w2 = np.matmul(np.matmul(np.linalg.inv(np.matmul(Ha.transpose(), Ha)), Ha.transpose()), D_scaled).transpose()
+		w2 = np.matmul(np.linalg.pinv(Ha), D_scaled)
 
-	Y = np.matmul(Ha, w2.transpose())
+	Y = np.matmul(Ha, w2)
 
 	#reversão do scaling para cálculo do erro
 	d = scaler.inverse_transform(D_scaled)
@@ -45,9 +45,11 @@ def output(x, d, w1, w2=[]):
 
 def main():
 	#última coluna dos pesos será sempre o bias
-	w1 = np.matrix('0.53  0.86 -0.43;\
-					1.83  0.31  0.34;\
-					-2.25 -1.3  3.57')
+	#w1 = np.matrix('0.53  0.86 -0.43;\
+	#				1.83  0.31  0.34;\
+	#				-2.25 -1.3  3.57')
+	P = 30
+	w1 = np.random.rand(P, 3)
 
 	#listas de entradas e saídas
 	x_training = np.matrix(' 0.35 -1.4;\
@@ -75,6 +77,8 @@ def main():
 						 4.1 1.3')
 	
 	output(x_test, d_test, w1, w2)
+
+	print (d_test.tolist())
 
 if __name__ == "__main__":
 	main()
